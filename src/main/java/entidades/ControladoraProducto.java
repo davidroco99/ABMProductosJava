@@ -91,5 +91,68 @@ public class ControladoraProducto {
         this.productos.remove(prodBorrar);//tiene que ir fuera del bucle porque se está recorriendo el array
         
     }
+
+    public DTOProducto traerProducto(String codigo) {
+        
+        int cod = Integer.parseInt(codigo);
+        
+        Producto prodMod = new Producto();
+                               
+        if (this.productos !=null){
+            for (Producto prod : this.productos){
+                if (prod.getCodigo()== cod){
+                    System.out.println("**********************************************");
+                    System.out.println("Se Buscó el producto: ");
+                    System.out.println(prod.toString());
+                    System.out.println("**********************************************");
+                    prodMod = prod; 
+                    
+                }        
+            }
+        }
+        
+            DTOProducto dtoProducto = new DTOProducto();
+            dtoProducto.setNombre(prodMod.getNombre());
+            dtoProducto.setCodigo(String.valueOf(prodMod.getCodigo()));
+            dtoProducto.setCantidad(String.valueOf(prodMod.getCantidad()));
+            dtoProducto.setDetalle(prodMod.getDetalle());
+            return dtoProducto;
+    }
+
+    public void modificarProducto(DTOProducto dtoProducto, String codigo) {
+        int cod = Integer.parseInt(codigo);
+        int indice;
+        int puntero;
+        indice=0;
+        puntero= 0;
+        
+        Producto prodMod = new Producto();
+                               
+        if (this.productos !=null){
+            for (Producto prod : this.productos){
+                if (prod.getCodigo()== cod){
+                    System.out.println("**********************************************");
+                    System.out.println("Se eliminó el producto: ");
+                    System.out.println(prod.toString());
+                    System.out.println("**********************************************");
+                    prodMod = prod; 
+                    puntero = indice;
+                }   
+            indice++;
+            }
+        }
+       
+        this.productos.remove(prodMod);
+        
+        Producto prod = new Producto();
+        prod.setNombre(dtoProducto.getNombre());
+        prod.setDetalle(dtoProducto.getDetalle());
+        prod.setCantidad(Integer.parseInt(dtoProducto.getCantidad()));
+        prod.setCodigo(Integer.parseInt(dtoProducto.getCodigo()));
+        this.productos.add(puntero, prod);
+      
+        this.mostrarProductos();
+        
+    }
     
 }

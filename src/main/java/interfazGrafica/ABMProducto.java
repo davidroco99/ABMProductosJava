@@ -68,6 +68,11 @@ public class ABMProducto extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +189,34 @@ public class ABMProducto extends javax.swing.JFrame {
         cargarTablaProductos();                                          
             
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (jtableProductos.getRowCount() > 0) {
+            //hay por lo menos una selección
+            if (jtableProductos.getSelectedRow() != -1) {
+                //optengo la id a borrar
+                String codigo = String.valueOf(jtableProductos.getValueAt(jtableProductos.getSelectedRow(), 1));
+                //borrar el alumno
+                MODIFICACIONProducto pantallaMOD = MODIFICACIONProducto.getInstance();
+                pantallaMOD.cargarProducto(codigo);
+                pantallaMOD.setVisible(true);
+                pantallaMOD.setLocationRelativeTo(null);
+                
+                //mostrarMensajes("Se Eliminó correctamente El Producto","Info", "Modificación Exitosa");               
+            }
+            else{
+                mostrarMensajes("No Seleccionó ningún registro","Error", "No se modificó el registro");
+            }
+        }
+        else{
+            mostrarMensajes("No hay registros para modificar","Error", "No se modificó el registro");
+        }
+        
+        cargarTablaProductos();                                          
+            
+                                               
+
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     public void cargarTablaProductos (){
         
